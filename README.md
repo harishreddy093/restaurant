@@ -1,10 +1,10 @@
-# LuxeMenu - Premium QR Digital Menu
+# LuxeMenu - Premium Digital Menu
 
 A premium, dark-themed digital restaurant menu with direct WhatsApp ordering integration.
 
 ## 🚀 Features
 
-- **QR Code Driven**: Tables are auto-detected via URL (e.g., `/t/1`).
+- **Table System**: Supports both URL-based table detection (e.g., `/t/1`) and manual table number entry.
 - **Premium UI**: "Apple-style" dark aesthetics with gold accents.
 - **WhatsApp Ordering**: Orders are formatted and sent directly to the kitchen.
 - **Cart System**: Local storage persistence and sticky bottom cart.
@@ -55,12 +55,8 @@ npm run dev
 3. Add `DATABASE_URL` and `NEXT_PUBLIC_KITCHEN_WHATSAPP` to Vercel Environment Variables.
 4. Deploy.
 
-## 📱 QR Code Generation
+## 📱 Usage
 
-To use this in your restaurant, generate QR codes that point to:
-
-- Table 1: `https://your-domain.com/#/t/1`
-- Table 2: `https://your-domain.com/#/t/2`
-- ...
-
-*Note: The `#` is used because this demo uses HashRouter. If using Next.js App Router, use `https://your-domain.com/t/1`.*
+1. **Landing Page**: Guests enter their table number manually or scan a specific QR code.
+2. **Menu**: Guests browse items and add to cart.
+3. **Order**: Guests send the order via WhatsApp, pre-filled with their table number and items.

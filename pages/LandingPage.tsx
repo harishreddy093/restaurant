@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { RESTAURANT_NAME } from '../constants';
-import { ScanLine, UtensilsCrossed, ArrowUp } from 'lucide-react';
+import { UtensilsCrossed, ChevronRight } from 'lucide-react';
 import { Navbar } from '../components/Navbar';
 
 export const LandingPage: React.FC = () => {
+  const [tableNum, setTableNum] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (tableNum.trim()) {
+      navigate(`/t/${tableNum}`);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-luxe-black relative overflow-hidden flex flex-col items-center justify-center">
       <Navbar />
@@ -28,25 +39,38 @@ export const LandingPage: React.FC = () => {
             <p className="mt-4 text-luxe-gray font-light text-lg tracking-wide">Premium Dining Experience</p>
         </div>
 
-        <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl shadow-2xl shadow-black/80 animate-fade-in delay-100 flex flex-col items-center relative overflow-hidden">
+        <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl shadow-2xl shadow-black/80 animate-fade-in delay-100 relative overflow-hidden">
             {/* Gloss Effect */}
             <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/5 to-transparent pointer-events-none" />
+            
+            <h2 className="text-xl text-white font-serif font-medium mb-6 relative z-10">Welcome Guest</h2>
+            
+            <form onSubmit={handleSubmit} className="relative z-10 w-full space-y-4">
+                <div className="relative group">
+                    <input 
+                        type="number" 
+                        value={tableNum}
+                        onChange={(e) => setTableNum(e.target.value)}
+                        placeholder="Enter Table Number"
+                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-4 text-center text-white placeholder-gray-500 focus:outline-none focus:border-luxe-gold/50 transition-all text-lg font-medium"
+                        required
+                        min="1"
+                    />
+                </div>
 
-            <div className="w-20 h-20 bg-luxe-black rounded-2xl flex items-center justify-center border border-luxe-gold/30 text-luxe-gold mb-6 relative overflow-hidden group shadow-inner shadow-black/50">
-                <div className="absolute inset-0 bg-luxe-gold/5 animate-pulse" />
-                <ScanLine size={36} className="relative z-10 drop-shadow-lg" />
-            </div>
-            
-            <h2 className="text-xl text-white font-serif font-medium mb-3">Welcome Guest</h2>
-            
-            <p className="text-gray-400 leading-relaxed text-sm">
-                To view our menu and place an order, please scan the QR code located on your table.
+                <button 
+                    type="submit"
+                    disabled={!tableNum}
+                    className="w-full bg-gradient-to-r from-luxe-gold to-luxe-goldDim text-luxe-black font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed group"
+                >
+                    <span>Open Menu</span>
+                    <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                </button>
+            </form>
+
+            <p className="mt-6 text-gray-500 text-xs leading-relaxed">
+                Please enter your table number to view the menu and place your order.
             </p>
-
-            <div className="mt-6 flex items-center gap-2 text-luxe-gold/50 text-xs uppercase tracking-widest font-semibold">
-                <ScanLine size={12} />
-                <span>Scan to Order</span>
-            </div>
         </div>
       </div>
       
